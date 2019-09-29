@@ -14,7 +14,7 @@ Just fork this project and build your app on it.
     - [2. Set up `eslint` and `vscode`](#2-set-up-eslint-and-vscode)
     - [3. Set up `pre-commit`](#3-set-up-pre-commit)
     - [5. Add `LICENSE`](#5-add-license)
-    - [6. Set up `NODE_PATH` for absolute import](#6-set-up-nodepath-for-absolute-import)
+    - [6. Set up NODE PATH for absolute import](#6-set-up-node-path-for-absolute-import)
 
 
 ## How we made it
@@ -147,7 +147,7 @@ Have a look at this [file](./scripts/lint.js), you can see that all I did is han
 ### 5. Add `LICENSE`
 Yes, we're in the open source world. Remember to choose your right LICENSE [here](https://choosealicense.com/), but please keep my `LICENSE` as a new name `LICENSE.namdaoduy` if you use this template!
 
-### 6. Set up `NODE_PATH` for absolute import
+### 6. Set up NODE PATH for absolute import
 ```js
 // Ewww
 import { Header } from './../../../../../components/Common/Header';

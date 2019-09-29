@@ -70,7 +70,7 @@ If you are using VSCODE, install extension `ESLint` to check and fix syntax.
 
 After set up successfully, you can enable/disable your custom rules in `.eslintrc.json` file:
 
-```json
+```js
 {
   // ...
   "rules": {
@@ -90,7 +90,7 @@ We've pre-configured some useful rules for the React project. Modify it as your 
 After set up `eslint`, set up `vscode` setting for workspace to make consistence between developers. `autoFixOnSave` is also useful.
 
 In `.vscode/settings.json`:
-```json
+```js
 {
   "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
@@ -111,7 +111,7 @@ First, install `pre-commit`
 
 Second, add config for `pre-commit` to `package.json`
 
-```json
+```js
 {
   // ...
   "scripts": {
@@ -129,7 +129,7 @@ After that, before every `git commit` command, `npm run lint` will be called.
 
 For better UI/UX, I added a `scripts/lint.js` script to make custom linting script, then we have to modify `package.json`:
 
-```json
+```js
 {
   // ...
   "scripts": {

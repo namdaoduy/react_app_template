@@ -12,6 +12,7 @@ Just fork this project and build your app on it.
   - [How we made it](#how-we-made-it)
     - [1. Init with `create-react-app`](#1-init-with-create-react-app)
     - [2. Set up `eslint` and `vscode`](#2-set-up-eslint-and-vscode)
+    - [3. Set up `pre-commit`](#3-set-up-pre-commit)
 
 
 ## How we made it
@@ -71,11 +72,11 @@ After set up successfully, you can enable/disable your custom rules in `.eslintr
 
 ```json
 {
-  ...
+  // ...
   "rules": {
     "no-console": 0,
     "import/no-named-as-default": 0,
-    ...
+    // ...
   }
 }
 ```
@@ -98,3 +99,45 @@ In `.vscode/settings.json`:
   "eslint.autoFixOnSave": true
 }
 ```
+
+### 3. Set up `pre-commit`
+To make sure your collaborative project to be clean, I also add `pre-commit` to run linting script everytime someone make a commit.
+
+First, install `pre-commit`
+
+```bash
+  $ npm install --save-dev pre-commit
+```
+
+Second, add config for `pre-commit` to `package.json`
+
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "lint": "./node_modules/.bin/eslint src"
+  },
+  // ...
+  "pre-commit": [
+    "lint"
+  ]
+}
+```
+
+After that, before every `git commit` command, `npm run lint` will be called.
+
+For better UI/UX, I added a `scripts/lint.js` script to make custom linting script, then we have to modify `package.json`:
+
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "lint": "node ./scripts/lint.js",
+    "fix": "FIX=1 node ./scripts/lint.js"
+  }
+  // ...
+}
+```
+Have a look at this [file](./scripts/lint.js), you can see that all I did is handling result from eslint manually and print custom info.

@@ -214,12 +214,12 @@ So with these files, we'll add **-example** postfix to it, and this file will no
 
 **Step 3:** Add some env variables to `.env` files
 
-**NOTE**: React App can only read these env variables:
-- `NODE_ENV`
-- `REACT_APP_` + anything
-
 In `.env.production`, add
 ```
 GENERATE_SOURCEMAP=false
 ```
 This one will make sure the build not include source map, that expose your React codes.
+
+**NOTE**: React App can only read these env variables:
+- `NODE_ENV`
+- `REACT_APP_` + anything

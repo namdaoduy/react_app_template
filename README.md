@@ -15,6 +15,7 @@ Just fork this project and build your app on it.
     - [3. Set up `pre-commit`](#3-set-up-pre-commit)
     - [5. Add `LICENSE`](#5-add-license)
     - [6. Set up NODE PATH for absolute import](#6-set-up-node-path-for-absolute-import)
+    - [7. Set up `dotenv`](#7-set-up-dotenv)
 
 
 ## How we made it
@@ -48,7 +49,7 @@ Pre-condition: `nodejs` and `npm` installed ([LTS version](https://nodejs.org/en
 ```bash
   $ ./node_modules/.bin/eslint --init
 ```
-Then follow the instuctions:
+Then follow the instructions:
 
 - ? How would you like to use ESLint? `To check syntax, find problems, and enforce code style`
 
@@ -178,3 +179,47 @@ NODE_PATH=src
 ```
 
 You're all set! Now you can use absolute import like a pro!
+
+### 7. Set up `dotenv`
+Wait a second.
+
+`create-react-app` has already included `dotenv`. If you eject a CRA project and look into `scripts/env.js`, you can see pre-configured `dotenv`.
+
+Some `env` files we can use are listed [here](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use)
+
+We can **EJECT** the CRA app to config every environments we want. But in this template, I want to make a `clean` template with `create-react-app`, means **NO EJECT**. So, if you want to configure multiple `.env` files for your custom environments, you have to eject CRA and config by your own.
+
+In this template, I'll config env files for 3 environment (defined by `NODE_ENV`):
+- `local`
+- `development`
+- `production`
+
+**Step 1:** Add `.env` files
+```
+.env
+.env.development
+.env.production
+.env.local-example
+```
+
+**Step 2:** In `.gitignore`, add these lines
+```sh
+# local files
+.env.local
+```
+
+**NOTE**: As this [link](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use), `.env` files end with **.local** postfix should be ignored from `git`, because those files are for local development, and it will overwrite the same `.env` file without **.local** postfix.
+
+So with these files, we'll add **-example** postfix to it, and this file will not be ignored in `.gitignore`. Developer will copy this example file and remove **-example** postfix to use for local development.
+
+**Step 3:** Add some env variables to `.env` files
+
+**NOTE**: React App can only read these env variables:
+- `NODE_ENV`
+- `REACT_APP_` + anything
+
+In `.env.production`, add
+```
+GENERATE_SOURCEMAP=false
+```
+This one will make sure the build not include source map, that expose your React codes.

@@ -13,6 +13,7 @@ Just fork this project and build your app on it.
     - [1. Init with `create-react-app`](#1-init-with-create-react-app)
     - [2. Set up `eslint` and `vscode`](#2-set-up-eslint-and-vscode)
     - [3. Set up `pre-commit`](#3-set-up-pre-commit)
+    - [5. Add `LICENSE`](#5-add-license)
 
 
 ## How we made it
@@ -141,3 +142,6 @@ For better UI/UX, I added a `scripts/lint.js` script to make custom linting scri
 }
 ```
 Have a look at this [file](./scripts/lint.js), you can see that all I did is handling result from eslint manually and print custom info.
+
+### 5. Add `LICENSE`
+Yes, we're in the open source world. Remember to choose your right LICENSE [here](https://choosealicense.com/), but please keep my `LICENSE` as a new name `LICENSE.namdaoduy` if you use this template!

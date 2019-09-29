@@ -1,68 +1,88 @@
+# React App Template
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to use
+Just fork this project and build your app on it.
 
-In the project directory, you can run:
+## What is included
+- [React App Template](#react-app-template)
+  - [How to use](#how-to-use)
+  - [What is included](#what-is-included)
+  - [How we made it](#how-we-made-it)
+    - [1. Init with `create-react-app`](#1-init-with-create-react-app)
+    - [2. Set up `eslint`](#2-set-up-eslint)
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How we made it
+### 1. Init with `create-react-app`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Instruction: [Link](https://reactjs.org/docs/create-a-new-react-app.html)
 
-### `npm test`
+Pre-condition: `nodejs` and `npm` installed ([LTS version](https://nodejs.org/en/download/))
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Step 1:** Navigating to a parent folder you want to place your project
 
-### `npm run build`
+```bash
+  $ cd ~/Documents/git/
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Step 2:** Init app with `npx` (installed with `npm`)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```bash
+  $ npx create-react-app react_app_template
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Step 3:** Init `git` and follow the instructions
 
-### `npm run eject`
+```bash
+  $ cd react_app_template/
+  $ git init
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. Set up `eslint`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+  $ ./node_modules/.bin/eslint --init
+```
+Then follow the instuctions:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- ? How would you like to use ESLint? `To check syntax, find problems, and enforce code style`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- ? What type of modules does your project use? `JavaScript modules (import/export)`
 
-## Learn More
+- ? Which framework does your project use? `React`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- ? Does your project use TypeScript? `No`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- ? Where does your code run? (Press `<space>` to select, `<a>` to toggle all, `<i>` to invert selection) `Browser`
 
-### Code Splitting
+- ? How would you like to define a style for your project? `Use a popular style guide`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- ? Which style guide do you want to follow? `Airbnb`
 
-### Analyzing the Bundle Size
+- ? What format do you want your config file to be in? `JSON`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+If Local ESLint installation not found, then choose `Yes` to install them locally.
 
-### Making a Progressive Web App
+If you are using VSCODE, install extension `ESLint` to check and fix syntax.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+After set up successfully, you can enable/disable your custom rules in `.eslintrc.json` file:
 
-### Advanced Configuration
+```json
+{
+  ...
+  "rules": {
+    "no-console": 0,
+    "import/no-named-as-default": 0,
+    ...
+  }
+}
+```
+*Note: ESLint rule*
+- `0` - turns the rule off
+- `1`- turn the rule on as a warning (doesn't affect exit code)
+- `2` - turn the rule on as an error (exit code is 1 when triggered)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+We've pre-configured some useful rules for the React project. Modify it as your favorite.
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

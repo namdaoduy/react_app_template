@@ -11,7 +11,7 @@ Just fork this project and build your app on it.
   - [What is included](#what-is-included)
   - [How we made it](#how-we-made-it)
     - [1. Init with `create-react-app`](#1-init-with-create-react-app)
-    - [2. Set up `eslint`](#2-set-up-eslint)
+    - [2. Set up `eslint` and `vscode`](#2-set-up-eslint-and-vscode)
 
 
 ## How we made it
@@ -40,7 +40,7 @@ Pre-condition: `nodejs` and `npm` installed ([LTS version](https://nodejs.org/en
   $ git init
 ```
 
-### 2. Set up `eslint`
+### 2. Set up `eslint` and `vscode`
 
 ```bash
   $ ./node_modules/.bin/eslint --init
@@ -86,3 +86,15 @@ After set up successfully, you can enable/disable your custom rules in `.eslintr
 
 We've pre-configured some useful rules for the React project. Modify it as your favorite.
 
+After set up `eslint`, set up `vscode` setting for workspace to make consistence between developers. `autoFixOnSave` is also useful.
+
+In `.vscode/settings.json`:
+```json
+{
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "eslint.autoFixOnSave": true
+}
+```

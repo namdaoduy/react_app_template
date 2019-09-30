@@ -227,6 +227,8 @@ So, be careful when use these `.env` files. We'll have `configs` for multi envir
 ```
 .env
 .env.local-example
+.env.development
+.env.development.local-example
 .env.production
 .env.production.local-example
 ```
@@ -235,6 +237,7 @@ So, be careful when use these `.env` files. We'll have `configs` for multi envir
 ```sh
 # local files
 .env.local
+.env.development.local
 .env.production.local
 ```
 
@@ -309,7 +312,7 @@ As we **can not** override `NODE_ENV` for our script, so we'll use another varia
 
 So we'll have 3 files for 3 env `local`, `development`, `production`. Look inside each file:
 
-- `base.js`: here we have all configs that applied for all environments
+- `base.js`: here we have all configs that will apply to all environments
 ```js
 const baseConfig = {
   appName: 'react_app_template',
@@ -327,7 +330,16 @@ const localConfig = {
 export default localConfig;
 ```
 
-Same as `dev.js` and `prod.js`. Then we'll combine them all in `index.js`
+- `dev.js`: configs for development environment
+```js
+const devConfig = {
+  apiUrl: 'http://api-dev.example.com',
+};
+
+export default devConfig;
+```
+
+Same for `prod.js`. Then we'll combine them all in `index.js`
 ```js
 import deepFreeze from 'deep-freeze';
 
@@ -356,7 +368,7 @@ deepFreeze(configs);
 export default configs;
 ```
 
-Depends on wich env is defined in `REACT_APP_ENV`, we'll export the right configs for that env. If not provided, `localConfig` will be used as default.
+Depends on which env is defined in `REACT_APP_ENV`, we'll export the right configs for that env. If not provided, `localConfig` will be used as default.
 
 Here I also installed `deep-freeze` to make `configs` object immmutable.
 
@@ -403,3 +415,7 @@ console.log(configs.apiUrl);
 ```
 
 That's it!
+
+**NOTE**: environments in `configs` and `.env` are **NOT** the same.
+- `configs` is depends on `REACT_APP_ENV`, that we define as our favour
+- `.env` is depends on `NODE_ENV`, that pre-defined in webpack for each `react-scripts` command

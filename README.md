@@ -18,6 +18,7 @@ Just fork this project and build your app on it.
     - [6. Set up `dotenv`](#6-set-up-dotenv)
     - [7. Create source code structure](#7-create-source-code-structure)
     - [8. Set up configs for multiple environments](#8-set-up-configs-for-multiple-environments)
+    - [9. Set up `react-router-dom`](#9-set-up-react-router-dom)
 
 
 ## How we made it
@@ -419,3 +420,16 @@ That's it!
 **NOTE**: environments in `configs` and `.env` are **NOT** the same.
 - `configs` is depends on `REACT_APP_ENV`, that we define as our favour
 - `.env` is depends on `NODE_ENV`, that pre-defined in webpack for each `react-scripts` command
+
+### 9. Set up `react-router-dom`
+
+Instruction [link](https://reacttraining.com/react-router/web/guides/quick-start)
+
+**Step 1:** Install package
+```sh
+npm install react-router-dom
+```
+
+**Step 2:** Add root `BrowserRouter` and `Switch` in `App.js`
+
+See the [codes](./src/components/App.js)

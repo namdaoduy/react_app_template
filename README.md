@@ -19,6 +19,7 @@ Just fork this project and build your app on it.
     - [7. Create source code structure](#7-create-source-code-structure)
     - [8. Set up configs for multiple environments](#8-set-up-configs-for-multiple-environments)
     - [9. Set up `react-router-dom`](#9-set-up-react-router-dom)
+    - [10. Set up `redux`](#10-set-up-redux)
 
 
 ## How we made it
@@ -426,10 +427,110 @@ That's it!
 Instruction [link](https://reacttraining.com/react-router/web/guides/quick-start)
 
 **Step 1:** Install package
-```sh
-npm install react-router-dom
+```bash
+  $ npm install react-router-dom
 ```
 
 **Step 2:** Add root `BrowserRouter` and `Switch` in `App.js`
 
 See the [codes](./src/components/App.js)
+
+### 10. Set up `redux`
+
+Here comes the magic of best practice structure: `react` with `redux`
+
+Our structure will look like this after setting up
+```
+src
+├── constants
+│   └── actions.js
+└── redux
+    ├── actions
+    │   └── app.action.js
+    ├── reducers
+    │   ├── app.reducer.js
+    │   └── root.reducer.js
+    └── store
+        ├── index.js
+        └── promiseMiddleware.js
+```
+
+**Step 1:** install some packages
+```bash
+  $ npm install redux react-redux redux-thunk
+```
+
+**Step 2:** create constant for some actions
+
+We'll add a new file in `constants/actions.js` contains some test actions
+
+**Step 3:** create some action creators
+
+We'll add a new file in `redux/actions/app.action.js` contains action creators of `app`
+
+**Step 4:** create reducers
+
+We'll add 2 files
+- `redux/reducers/app.reducer.js`: reducer for `app`
+- `redux/reducers/root.reducer.js`: combine all reducers here
+
+**Step 5:** create store and middleware
+
+In `redux/store`, we'll have 2 things
+- `index.js`: config and export redux `store` here
+- `promiseMiddleware.js`: a custom promise middleware for redux. This one is based on how my colleagues at Got It implemented, and I think this one is the best practice so far.
+
+About middleware, we also use `redux-thunk` (this one is very simple, but I'll use npm package).
+
+If you want to learn more about how redux middleware work, see this [article](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6).
+
+**Step 6:** set up Provider in `index.js`
+```js
+// ...
+import { Provider as ReduxProvider } from 'react-redux';
+import store from 'redux/store';
+
+// ...
+
+ReactDOM.render(
+  <ReduxProvider store={store}>
+    <App />
+  </ReduxProvider>,
+  document.getElementById('root'),
+);
+
+// ...
+```
+
+**Step 7:** Usage
+```js
+// ...
+import { connect } from 'react-redux';
+import { testPromiseSuccess } from 'redux/actions/app.action';
+
+export class ExampleComponent extends React.Component {
+  logIn = () => {
+    const { testPromiseSuccess } = this.props;
+    testPromiseSuccess();
+  }
+
+  display = () => {
+    const { loggedIn } = this.props;
+    return loggedIn ? 'Yes' : 'No';
+  }
+
+  // ...
+}
+
+const mapStateToProps = ({ app }) => ({
+  loggedIn: app.check,
+});
+
+const mapDispatchToProps = {
+  testPromiseSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExampleComponent);
+```
+
+That's all!

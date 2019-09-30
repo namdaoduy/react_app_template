@@ -422,6 +422,7 @@ That's it!
 - `configs` is depends on `REACT_APP_ENV`, that we define as our favour
 - `.env` is depends on `NODE_ENV`, that pre-defined in webpack for each `react-scripts` command
 
+---
 ### 9. Set up `react-router-dom`
 
 Instruction [link](https://reacttraining.com/react-router/web/guides/quick-start)
@@ -435,6 +436,7 @@ Instruction [link](https://reacttraining.com/react-router/web/guides/quick-start
 
 See the [codes](./src/components/App.js)
 
+---
 ### 10. Set up `redux`
 
 Here comes the magic of best practice structure: `react` with `redux`

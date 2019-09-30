@@ -13,12 +13,16 @@ Just fork this project and build your app on it.
     - [1. Init with `create-react-app`](#1-init-with-create-react-app)
     - [2. Set up `eslint` and `vscode`](#2-set-up-eslint-and-vscode)
     - [3. Set up `pre-commit`](#3-set-up-pre-commit)
-    - [5. Add `LICENSE`](#5-add-license)
-    - [6. Set up NODE PATH for absolute import](#6-set-up-node-path-for-absolute-import)
-    - [7. Set up `dotenv`](#7-set-up-dotenv)
+    - [4. Add `LICENSE`](#4-add-license)
+    - [5. Set up NODE PATH for absolute import](#5-set-up-node-path-for-absolute-import)
+    - [6. Set up `dotenv`](#6-set-up-dotenv)
+    - [7. Create source code structure](#7-create-source-code-structure)
 
 
 ## How we made it
+This section is for reference, or if you want to set up your own project with some features of this template.
+
+---
 ### 1. Init with `create-react-app`
 
 Instruction: [Link](https://reactjs.org/docs/create-a-new-react-app.html)
@@ -44,6 +48,7 @@ Pre-condition: `nodejs` and `npm` installed ([LTS version](https://nodejs.org/en
   $ git init
 ```
 
+---
 ### 2. Set up `eslint` and `vscode`
 
 ```bash
@@ -103,6 +108,7 @@ In `.vscode/settings.json`:
 }
 ```
 
+---
 ### 3. Set up `pre-commit`
 To make sure your collaborative project to be clean, I also add `pre-commit` to run linting script everytime someone make a commit.
 
@@ -145,10 +151,12 @@ For better UI/UX, I added a `scripts/lint.js` script to make custom linting scri
 ```
 Have a look at this [file](./scripts/lint.js), you can see that all I did is handling result from eslint manually and print custom info.
 
-### 5. Add `LICENSE`
+---
+### 4. Add `LICENSE`
 Yes, we're in the open source world. Remember to choose your right LICENSE [here](https://choosealicense.com/), but please keep my `LICENSE` as a new name `LICENSE.namdaoduy` if you use this template!
 
-### 6. Set up NODE PATH for absolute import
+---
+### 5. Set up NODE PATH for absolute import
 ```js
 // Ewww
 import { Header } from './../../../../../components/Common/Header';
@@ -157,7 +165,7 @@ import { Header } from './../../../../../components/Common/Header';
 import { Header } from 'components/Common/Header';
 ```
 
-This is not magic. We just need 2 step to set up absolute import for our app:
+This is not magic. We just need 3 step to set up absolute import for our app:
 
 **Step 1:** Add `NODE_PATH` to `.env` file
 ```sh
@@ -178,9 +186,25 @@ NODE_PATH=src
 }
 ```
 
+**Step 2:** Create file `jsconfig.json` so VSCODE can enable absolute import intelliSense
+```js
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src/"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
 You're all set! Now you can use absolute import like a pro!
 
-### 7. Set up `dotenv`
+---
+### 6. Set up `dotenv`
 Wait a second.
 
 `create-react-app` has already included `dotenv`. If you eject a CRA project and look into `scripts/env.js`, you can see pre-configured `dotenv`.
@@ -223,3 +247,39 @@ This one will make sure the build not include source map, that expose your React
 **NOTE**: React App can only read these env variables:
 - `NODE_ENV`
 - `REACT_APP_` + anything
+
+---
+### 7. Create source code structure
+I added some folders and move files in `src` to create a structure
+```
+src
+├── assets
+│   ├── css
+│   │   ├── App.css
+│   │   └── index.css
+│   └── images
+│       └── logo.svg
+├── components
+│   ├── __tests__
+│   │   └── App.test.js
+│   └── App.js
+├── configs
+├── constants
+├── redux
+│   ├── actions
+│   ├── reducers
+│   └── store
+├── utils
+│   └── serviceWorker.js
+└── index.js
+```
+
+About each directory
+- `assets`: contains images and css (assets stuff)
+- `components`: all your `React` components codes. You can create sub-directory for nested components
+- `configs`: your configurations, I'll set up later for multiple environments
+- `constants`: contains const, enum, ...
+- `redux`: all about `redux`, we'll set up later
+- `utils`: contains all helpers, utilities modules
+- `index.js`: our main js file
+- `__tests__`: when we write unit test for a component, create `__tests__` folder in the same directory and put test file in there.

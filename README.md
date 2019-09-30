@@ -17,6 +17,7 @@ Just fork this project and build your app on it.
     - [5. Set up NODE PATH for absolute import](#5-set-up-node-path-for-absolute-import)
     - [6. Set up `dotenv`](#6-set-up-dotenv)
     - [7. Create source code structure](#7-create-source-code-structure)
+    - [8. Set up configs for multiple environments](#8-set-up-configs-for-multiple-environments)
 
 
 ## How we made it
@@ -213,23 +214,28 @@ Some `env` files we can use are listed [here](https://github.com/bkeepers/dotenv
 
 We can **EJECT** the CRA app to config every environments we want. But in this template, I want to make a `clean` template with `create-react-app`, means **NO EJECT**. So, if you want to configure multiple `.env` files for your custom environments, you have to eject CRA and config by your own.
 
-In this template, I'll config env files for 3 environment (defined by `NODE_ENV`):
-- `local`
-- `development`
-- `production`
+**IMPORTANT!**
+
+`NODE_ENV` can not be overrided. It depends on the script you run:
+- `react-scripts start` -> `NODE_ENV`=`development`
+- `react-scripts test` -> `NODE_ENV`=`test`
+- `react-scripts build` -> `NODE_ENV`=`production`
+
+So, be careful when use these `.env` files. We'll have `configs` for multi environments later, so keep in mind that, we mainly use `.env` and `.env.local` for set up some common environment variables.
 
 **Step 1:** Add `.env` files
 ```
 .env
-.env.development
-.env.production
 .env.local-example
+.env.production
+.env.production.local-example
 ```
 
 **Step 2:** In `.gitignore`, add these lines
 ```sh
 # local files
 .env.local
+.env.production.local
 ```
 
 **NOTE**: As this [link](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use), `.env` files end with **.local** postfix should be ignored from `git`, because those files are for local development, and it will overwrite the same `.env` file without **.local** postfix.
@@ -283,3 +289,117 @@ About each directory
 - `utils`: contains all helpers, utilities modules
 - `index.js`: our main js file
 - `__tests__`: when we write unit test for a component, create `__tests__` folder in the same directory and put test file in there.
+
+---
+### 8. Set up configs for multiple environments
+**Step 1:** set up config files
+
+I added some files here in `configs` folder
+```
+src
+└── configs
+    ├── base.js
+    ├── dev.js
+    ├── index.js
+    ├── local.js
+    └── prod.js
+```
+
+As we **can not** override `NODE_ENV` for our script, so we'll use another variable, `REACT_APP_ENV` to set up configs.
+
+So we'll have 3 files for 3 env `local`, `development`, `production`. Look inside each file:
+
+- `base.js`: here we have all configs that applied for all environments
+```js
+const baseConfig = {
+  appName: 'react_app_template',
+};
+
+export default baseConfig;
+```
+
+- `local.js`: configs for local environment
+```js
+const localConfig = {
+  apiUrl: 'http://127.0.0.1:8000',
+};
+
+export default localConfig;
+```
+
+Same as `dev.js` and `prod.js`. Then we'll combine them all in `index.js`
+```js
+import deepFreeze from 'deep-freeze';
+
+import baseConfig from './base';
+import localConfig from './local';
+import devConfig from './dev';
+import prodConfig from './prod';
+
+const env = process.env.REACT_APP_ENV;
+let envConfig = {};
+if (env === 'development') {
+  envConfig = devConfig;
+} else if (env === 'production') {
+  envConfig = prodConfig;
+} else {
+  envConfig = localConfig;
+}
+
+const configs = {
+  ...baseConfig,
+  ...envConfig,
+};
+
+deepFreeze(configs);
+
+export default configs;
+```
+
+Depends on wich env is defined in `REACT_APP_ENV`, we'll export the right configs for that env. If not provided, `localConfig` will be used as default.
+
+Here I also installed `deep-freeze` to make `configs` object immmutable.
+
+**Step 2:** modify scripts in `package.json`
+
+```js
+{
+  // ...
+  "scripts": {
+    "start": "REACT_APP_ENV=local react-scripts start",
+    "start:dev": "REACT_APP_ENV=development react-scripts start",
+    "start:prod": "REACT_APP_ENV=production react-scripts start",
+    "build": "REACT_APP_ENV=local react-scripts build",
+    "build:dev": "REACT_APP_ENV=development react-scripts build",
+    "build:prod": "REACT_APP_ENV=production react-scripts build",
+    "test": "REACT_APP_ENV=local react-scripts test",
+    "lint": "node ./scripts/lint.js",
+    "fix": "FIX=1 node ./scripts/lint.js"
+  },
+  // ...
+}
+```
+
+Now, if you want to use different environment, just run
+```sh
+# local
+npm start
+npm run build
+
+# dev
+npm run start:dev
+npm run build:dev
+
+# prod
+npm run start:prod
+npm run build:prod
+```
+
+And then in your modules
+```js
+import configs from 'configs';
+
+console.log(configs.apiUrl);
+```
+
+That's it!

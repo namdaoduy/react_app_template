@@ -4,14 +4,19 @@
   "private": true,
   "dependencies": {
     "chalk": "^2.4.2",
+    "deep-freeze": "0.0.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-scripts": "3.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "REACT_APP_ENV=local react-scripts start",
+    "start:dev": "REACT_APP_ENV=development react-scripts start",
+    "start:prod": "REACT_APP_ENV=production react-scripts start",
+    "build": "REACT_APP_ENV=local react-scripts build",
+    "build:dev": "REACT_APP_ENV=development react-scripts build",
+    "build:prod": "REACT_APP_ENV=production react-scripts build",
+    "test": "REACT_APP_ENV=local react-scripts test",
     "lint": "node ./scripts/lint.js",
     "fix": "FIX=1 node ./scripts/lint.js"
   },

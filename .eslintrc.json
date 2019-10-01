@@ -12,6 +12,7 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -46,6 +47,7 @@
     "import/no-named-as-default": 0,
     "import/prefer-default-export": 1,
     "prefer-destructuring": 1,
+    "arrow-parens": 0,
     "no-shadow": 0,
     "no-console": 0,
     "no-plusplus": 0,

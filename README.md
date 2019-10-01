@@ -20,6 +20,7 @@ Just fork this project and build your app on it.
     - [8. Set up configs for multiple environments](#8-set-up-configs-for-multiple-environments)
     - [9. Set up `react-router-dom`](#9-set-up-react-router-dom)
     - [10. Set up `redux`](#10-set-up-redux)
+    - [11. Add useful utils](#11-add-useful-utils)
 
 
 ## How we made it
@@ -91,6 +92,17 @@ After set up successfully, you can enable/disable your custom rules in `.eslintr
   }
 }
 ```
+
+
+If you recieve error when using arrow funtion that is described [here](https://github.com/eslint/eslint/issues/10137), add this line to `.eslintrc.json`
+```js
+{
+  // ...
+  "parser": "babel-eslint",
+  // ...
+}
+```
+
 *Note: ESLint rule*
 - `0` - turns the rule off
 - `1`- turn the rule on as a warning (doesn't affect exit code)
@@ -536,3 +548,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(ExampleComponent);
 ```
 
 That's all!
+
+---
+### 11. Add useful utils
+
+I've added some useful utils that you could use:
+- `auth.js`: manage `access_token`
+- `request.js`: wrapped common HTTP requests with `fetch`
+- `storage.js`: manage localStorage

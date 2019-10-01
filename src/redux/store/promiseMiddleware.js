@@ -33,7 +33,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     const response = { success: true, result };
     return response;
   }).catch((error) => {
-    console.error('Promise FAILED: ', error);
+    console.error('Promise FAILED:', error.data, error);
     // Dispatch failureAction
     next({
       type: failureAction,

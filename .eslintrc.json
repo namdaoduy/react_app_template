@@ -44,6 +44,7 @@
     "react/require-default-props": 0,
     "react/button-has-type": 0,
     "react/prop-types": 1,
+    "react/jsx-props-no-spreading": 0,
     "import/no-named-as-default": 0,
     "import/prefer-default-export": 1,
     "prefer-destructuring": 1,

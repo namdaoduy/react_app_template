@@ -21,6 +21,7 @@ Just fork this project and build your app on it.
     - [9. Set up `react-router-dom`](#9-set-up-react-router-dom)
     - [10. Set up `redux`](#10-set-up-redux)
     - [11. Add useful utils](#11-add-useful-utils)
+    - [12. Set up unit test with `jest` and `enzyme`](#12-set-up-unit-test-with-jest-and-enzyme)
 
 
 ## How we made it
@@ -556,3 +557,40 @@ I've added some useful utils that you could use:
 - `auth.js`: manage `access_token`
 - `request.js`: wrapped common HTTP requests with `fetch`
 - `storage.js`: manage localStorage
+
+---
+### 12. Set up unit test with `jest` and `enzyme`
+
+**Step 1:** install packages
+```bash
+  $ npm i --save-dev enzyme enzyme-adapter-react-16
+```
+
+**Step 2:** Add set up file in `src/setupTests.js`
+```js
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
+**Step 3:** Add jest config in `package.json` to collect coverage
+```js
+{
+  // ...
+  "scripts": {
+    // ...
+    "test:cov": "REACT_APP_ENV=local react-scripts test --watchAll=false --coverage"
+  },
+  // ...
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      // ignore files you do not want to collect coverage
+      "!<rootDir>/src/utils/serviceWorker.js"
+    ]
+  }
+}
+```
+
+**Step 4:** write test :D

@@ -1,9 +1,31 @@
+/* eslint-disable */
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../App';
+import { shallow } from 'enzyme';
+import { App } from '../App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('components/App', () => {
+  let wrapper;
+  let props;
+  let instance;
+
+  const setup = () => {
+    wrapper = shallow(<App {...props} />);
+    instance = wrapper.instance();
+  };
+
+  const update = () => {
+    wrapper.update();
+  };
+
+  beforeEach(() => {
+    props = {
+      testPromiseFailure: jest.fn(() => Promise.reject(new Error())),
+      testPromiseSuccess: jest.fn(() => Promise.resolve()),
+    };
+  });
+
+  it('renders without crashing', () => {
+    setup();
+    expect(wrapper.length).toBe(1);
+  });
 });

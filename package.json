@@ -22,6 +22,7 @@
     "build:dev": "REACT_APP_ENV=development react-scripts build",
     "build:prod": "REACT_APP_ENV=production react-scripts build",
     "test": "REACT_APP_ENV=local react-scripts test",
+    "test:cov": "REACT_APP_ENV=local react-scripts test --watchAll=false --coverage",
     "lint": "node ./scripts/lint.js",
     "fix": "FIX=1 node ./scripts/lint.js"
   },
@@ -41,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
@@ -51,5 +54,11 @@
   },
   "pre-commit": [
     "lint"
-  ]
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      "!<rootDir>/src/utils/serviceWorker.js"
+    ]
+  }
 }

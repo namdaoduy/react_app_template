@@ -4,21 +4,38 @@ const c = require('chalk');
 const log = console.log.bind(console, c.cyan('linting: '));
 
 const WITH_FIX = process.env.FIX;
+const WITH_WARN = process.env.WARN;
+
 let command = './node_modules/.bin/eslint src';
 if (WITH_FIX) {
   command += ' --fix';
 }
 
+const logOutput = (out, summaryOnly = false) => {
+  let haveProblem = false;
+  out.split('\n').forEach((line) => {
+    if (line.includes('✖')) {
+      log(c.red(line));
+      haveProblem = true;
+    } else if (!summaryOnly) {
+      log(c.blue(line));
+    }
+  });
+  if (!haveProblem) {
+    log(c.green('✔ 0 problems'));
+  }
+};
+
+const checkProblem = (out) => out.includes('✖');
+
 process.stdout.write(c.cyan('linting: ') + c.yellow('Searching for errors ... '));
 exec(command, (err, stdout) => {
-  if (err) {
+  if (err || (WITH_WARN && checkProblem(stdout))) {
     console.log(c.red('ERROR'));
-    stdout.split('\n').forEach((line) => {
-      log(c.blue(line));
-    });
+    logOutput(stdout);
     log(
       c.yellow('Run ')
-      + c.green('npm run fix')
+      + c.green('npm run lint:fix')
       + c.yellow(' to auto-fix problem.')
     );
     log(
@@ -29,5 +46,6 @@ exec(command, (err, stdout) => {
   }
 
   console.log(c.green('PASSED'));
+  logOutput(stdout, true);
   process.exit(0);
 });

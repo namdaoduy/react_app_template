@@ -25,7 +25,8 @@
     "test": "REACT_APP_ENV=local react-scripts test",
     "test:cov": "REACT_APP_ENV=local react-scripts test --watchAll=false --coverage",
     "lint": "node ./scripts/lint.js",
-    "fix": "FIX=1 node ./scripts/lint.js"
+    "lint:warn": "WARN=1 node ./scripts/lint.js",
+    "lint:fix": "FIX=1 WARN=1 node ./scripts/lint.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import configs from 'configs';
 import { testPromiseFailure, testPromiseSuccess } from 'redux/actions/app.action';
 
@@ -57,6 +58,11 @@ export class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  testPromiseSuccess: PropTypes.func,
+  testPromiseFailure: PropTypes.func,
+};
 
 const mapStateToProps = null;
 const mapDispatchToProps = {

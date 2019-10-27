@@ -30,13 +30,14 @@ const checkProblem = (out) => out.includes('✖');
 
 process.stdout.write(c.cyan('linting: ') + c.yellow('Searching for errors ... '));
 exec(command, (err, stdout) => {
-  if (err || (WITH_WARN && checkProblem(stdout))) {
+  const haveProblem = checkProblem(stdout);
+  if (err || (WITH_WARN && haveProblem)) {
     console.log(c.red('ERROR'));
     logOutput(stdout);
     log(
       c.yellow('Run ')
       + c.green('npm run lint:fix')
-      + c.yellow(' to auto-fix problem.')
+      + c.yellow(' to auto-fix problems.')
     );
     log(
       c.yellow('Please double-check the changes after auto-fixing, then run ')
@@ -47,5 +48,12 @@ exec(command, (err, stdout) => {
 
   console.log(c.green('PASSED'));
   logOutput(stdout, true);
+  if (haveProblem && !WITH_WARN) {
+    log(
+      c.yellow('Run ')
+      + c.green('npm run lint:warn')
+      + c.yellow(' to check warnings if needed.')
+    );
+  }
   process.exit(0);
 });

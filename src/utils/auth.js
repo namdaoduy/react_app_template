@@ -6,8 +6,8 @@ class AccessToken {
     this.accessToken = null;
   }
 
-  async setAccessToken(token) {
-    await setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+  setAccessToken(token) {
+    setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
     this.accessToken = token;
   }
 
@@ -15,8 +15,8 @@ class AccessToken {
     return this.accessToken;
   }
 
-  async updateAccessToken() {
-    const token = await getItem(STORAGE_KEYS.ACCESS_TOKEN);
+  updateAccessToken() {
+    const token = getItem(STORAGE_KEYS.ACCESS_TOKEN);
     this.accessToken = token;
     return token;
   }
@@ -25,7 +25,13 @@ class AccessToken {
     this.accessToken = null;
     setItem(STORAGE_KEYS.ACCESS_TOKEN, '');
   }
+
+  isAuth() {
+    return !!this.accessToken;
+  }
 }
 
 const Auth = new AccessToken();
+Auth.updateAccessToken();
+
 export default Auth;
